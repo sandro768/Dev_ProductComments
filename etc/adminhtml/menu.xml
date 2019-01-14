@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dev_ProductComments::top_level" title="Dev" module="Dev_ProductComments" sortOrder="51" resource="Magento_Backend::content"/>
+        <add id="Dev_ProductComments::dev_productcomments" title="Product Comments" module="Dev_ProductComments" sortOrder="51" action="dev_productcomments/comment/index" resource="Magento_Backend::content" parent="Dev_ProductComments::top_level"/>
+    </menu>
+</config>

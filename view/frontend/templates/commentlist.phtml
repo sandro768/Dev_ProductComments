@@ -1,0 +1,29 @@
+<?php
+/** @var $block Dev\ProductComments\Block\ProductComments */
+?>
+<div class="main-div">
+    <?php
+    $productCollection = $block->productComments();
+    $helperImport = $block->getImageHelper();
+
+    foreach ($productCollection as $product) {
+        /** @var  $product \Magento\Catalog\Model\Product */
+        $imageUrl = $helperImport->init($product, 'product_page_image_small')
+            ->setImageFile($product->getThumbnail()) // image,small_image,thumbnail
+            ->resize(380)
+            ->getUrl();
+        ?>
+        <div class="product-wrapper">
+            <img src="<?= $imageUrl ?>">
+            <div>
+                <h2><?=$product->getName()?></h2>
+                <p><?= __('Price: %1$', $block->getPriceHelper()->currency($product->getFinalPrice())) ?></p>
+                <a href="<?=$product->getProductUrl()?>" style="text-decoration: none"><button class="action submit primary"><?= __('Enter Product') ?></button></a>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+
+
+
+

@@ -1,0 +1,25 @@
+<form class="form" id="custom-form" action="<?=$block->getUrl('commentvisibility/index/sendComment')?>" data-mage-init='{"validation": {}}' method="post" autocomplete="off">
+    <fieldset class="fieldset">
+        <div class="field required">
+            <label for="name" class="label"><span><?php echo __('Name') ?></span></label>
+            <div class="control">
+                <input type="text" name="name" id="name" value="" title="<?php echo __('Name') ?>" class="input-text" data-validate="{required:false}">
+            </div>
+        </div>
+        <div class="field required">
+            <label for="email_address" class="label"><span><?php echo __('Email') ?></span></label>
+            <div class="control">
+                <input type="email" name="email" id="email_address" value="" title="<?php echo __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}">
+            </div>
+        </div>
+        <div class="field required">
+            <label for="comment" class="label"><?php echo  __('Comment') ?></label>
+            <textarea name="comment" id="comment" value="" title="<?php echo  __('Comment') ?>" class="input-text" data-validate="{required:true}"></textarea>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary" title="<?php  echo __('Submit') ?>"><span><?php echo __('Submit') ?></span></button>
+        </div>
+    </div>
+</form>

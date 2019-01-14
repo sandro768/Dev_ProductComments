@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">dev_productcomments_comment_form.comment_form_data_source</item>
+            <!--<item name="deps" xsi:type="string">dev_productcomments_comment_form.comment_form_data_source</item>-->
+        </item>
+        <item name="label" xsi:type="string" translate="true">Sample Form</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Dev\ProductComments\Block\Adminhtml\Comment\Add\BackButton"/>
+            <button name="delete" class="Dev\ProductComments\Block\Adminhtml\Comment\Add\DeleteButton"/>
+            <button name="reset" class="Dev\ProductComments\Block\Adminhtml\Comment\Add\ResetButton"/>
+            <button name="save" class="Dev\ProductComments\Block\Adminhtml\Comment\Add\SaveButton"/>
+            <button name="save_and_continue" class="Dev\ProductComments\Block\Adminhtml\Comment\Add\SaveAndContinueButton"/>
+        </buttons>
+        <namespace>dev_productcomments_comment_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>dev_productcomments_comment_form.comment_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="comment_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Dev\ProductComments\Model\Comment\DataProvider</argument>
+            <argument name="name" xsi:type="string">comment_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">comment_id</argument>
+            <argument name="requestFieldName" xsi:type="string">comment_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/saveComment"/>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <fieldset name="comments">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Comment</item>
+            </item>
+        </argument>
+        <field name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Comment</item>
+                </item>
+            </argument>
+        </field>
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Name</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Comment</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Email</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Comment</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-email" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="comment">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Comment</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Comment</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+    </fieldset>
+</form>
