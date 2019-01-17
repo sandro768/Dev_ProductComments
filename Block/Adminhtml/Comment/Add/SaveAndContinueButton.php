@@ -16,10 +16,9 @@ class SaveAndContinueButton extends GenericButton implements ButtonProviderInter
     {
         return [
             'label' => __('Save And Continue'),
-            'class' => 'save primary',
+            'class' => 'save',
             'data_attribute' => [
-                'mage-init' => ['button' => ['event' => 'save']],
-                'form-role' => 'save',
+                'mage-init' => ['button' => ['event' => 'saveAndContinue']]
             ],
             'sort_order' => 90,
         ];

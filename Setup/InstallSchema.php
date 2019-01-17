@@ -49,6 +49,13 @@ class InstallSchema implements InstallSchemaInterface
                     'Date'
                 )
                 ->addColumn(
+                    'status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => false, 'default' => ''],
+                    'Status'
+                )
+                ->addColumn(
                     'name',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,

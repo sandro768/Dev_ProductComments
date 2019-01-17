@@ -34,6 +34,47 @@
         <settings>
             <sticky>true</sticky>
         </settings>
+        <massaction name="listing_massaction">
+            <action name="approved">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">status</item>
+                        <item name="label" xsi:type="string" translate="true">Approve</item>
+                        <item name="url" xsi:type="url" path="*/*/approve"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Approve Comment(s)</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to approve selected comments?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            <action name="not_approved">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">stat</item>
+                        <item name="label" xsi:type="string" translate="true">Disapprove</item>
+                        <item name="url" xsi:type="url" path="*/*/disapprove"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Disapprove Comment(s)</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to Disapprove selected comments?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="*/*/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Comment(s)</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to delete the selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
         <filters name="listing_filters"/>
@@ -115,6 +156,18 @@
                 <label translate="true">Date</label>
                 <editor>
                     <editorType>date</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="status">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Status</label>
+                <editor>
+                    <editorType>select</editorType>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">false</rule>
                     </validation>

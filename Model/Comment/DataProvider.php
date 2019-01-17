@@ -44,14 +44,14 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         }
 
         $items = $this->collection->getItems();
-        foreach ($items as $contact) {
-            $this->loadedData[$contact->getId()] = $contact->getData();
+        foreach ($items as $comment) {
+            $this->loadedData[$comment->getId()] = $comment->getData();
         }
         $data = $this->dataPersistor->get('product_comments');
         if (!empty($data)) {
-            $model = $this->collection->getNewEmptyItem();
-            $model->setData($data);
-            $this->loadedData[$model->getId()] = $model->getData();
+            $comment = $this->collection->getNewEmptyItem();
+            $comment->setData($data);
+            $this->loadedData[$comment->getId()] = $comment->getData();
             $this->dataPersistor->clear('product_comments');
         }
 
