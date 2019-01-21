@@ -60,7 +60,8 @@ class SendComment extends Action
                 $this->commentModel
                     ->setData('name', $name)
                     ->setData('email', $email)
-                    ->setData('comment', $comment);
+                    ->setData('comment', $comment)
+                    ->setData('status', 'not approved');
                 try {
                     $this->resourceModel->save($this->commentModel);
                 } catch (\Exception $e) {

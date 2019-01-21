@@ -3,12 +3,9 @@
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">dev_productcomments_comment_form.comment_form_data_source</item>
-            <!--<item name="deps" xsi:type="string">dev_productcomments_comment_form.comment_form_data_source</item>-->
         </item>
         <item name="label" xsi:type="string" translate="true">Sample Form</item>
-        <item name="layout" xsi:type="array">
-            <item name="type" xsi:type="string">tabs</item>
-        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
     </argument>
     <settings>
         <buttons>
@@ -43,11 +40,9 @@
         </argument>
     </dataSource>
     <fieldset name="comments">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">Comment</item>
-            </item>
-        </argument>
+        <settings>
+            <label/>
+        </settings>
         <field name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -99,6 +94,34 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">Comment</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="not_approved" xsi:type="array">
+                        <item name="value" xsi:type="string">not approved</item>
+                        <item name="label" xsi:type="string" translate="true">not approved</item>
+                    </item>
+                    <item name="approved" xsi:type="array">
+                        <item name="value" xsi:type="string">approved</item>
+                        <item name="label" xsi:type="string" translate="true">approved</item>
+                    </item>
+                </item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">job</item>
+                    <item name="dataScope" xsi:type="string">status</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
                 </item>
             </argument>
             <settings>

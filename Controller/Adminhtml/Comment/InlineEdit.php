@@ -2,10 +2,10 @@
 
 namespace Dev\ProductComments\Controller\Adminhtml\Comment;
 
+use Dev\ProductComments\Model\Comment;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Dev\ProductComments\Model\Comment;
 
 class InlineEdit extends Action
 {

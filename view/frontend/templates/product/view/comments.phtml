@@ -1,3 +1,35 @@
+<?php
+$collection = $block->getCommentCollection();
+?>
+<?php if (count($collection) > 0): ?>
+    <div class="block review-list">
+        <div class="block-title">
+            <strong>Product Comments</strong>
+        </div>
+        <?php foreach ($collection as $item): ?>
+            <div class="block-content">
+                <ol class="items review-items">
+                    <li class="item review-item" itemscope="" itemprop="review" itemtype="http://schema.org/Review">
+                        <div class="review-content" itemprop="description"><?php echo $item->getData("body"); ?></div>
+                        <div class="review-details">
+                            <p class="review-author">
+                                <span class="review-details-label">Commented by</span>
+                                <strong class="review-details-value"
+                                        itemprop="author"><?php echo $item->getData("name"); ?></strong>
+                            </p>
+                            <br>
+                            <p class="review-date">
+                                <span class="review-details-label">Posted on</span>
+                                <time class="review-details-value"
+                                      itemprop="datePublished"><?php echo date('m/j/Y', strtotime($item->getData("date"))); ?></time>
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 <form class="form" id="custom-form" action="<?=$block->getUrl('commentvisibility/index/sendComment')?>" data-mage-init='{"validation": {}}' method="post" autocomplete="off">
     <fieldset class="fieldset">
         <div class="field required">

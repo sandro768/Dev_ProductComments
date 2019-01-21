@@ -56,7 +56,7 @@
                         <item name="url" xsi:type="url" path="*/*/disapprove"/>
                         <item name="confirm" xsi:type="array">
                             <item name="title" xsi:type="string" translate="true">Disapprove Comment(s)</item>
-                            <item name="message" xsi:type="string" translate="true">Do you want to Disapprove selected comments?</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to disapprove selected comments?</item>
                         </item>
                     </item>
                 </argument>

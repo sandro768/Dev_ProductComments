@@ -1,6 +1,7 @@
 <?php
 
 namespace Dev\ProductComments\Model\Comment;
+
 use Dev\ProductComments\Model\ResourceModel\Comment\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
 

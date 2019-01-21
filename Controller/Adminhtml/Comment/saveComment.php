@@ -6,7 +6,7 @@ use Dev\ProductComments\Model\Comment;
 use Dev\ProductComments\Model\ResourceModel\Comment as ResourceComment;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\App\Request\DataPersistorInterface;
 
 class saveComment extends Action
 {
@@ -20,59 +20,56 @@ class saveComment extends Action
     private $resourceModel;
 
     /**
+     * @var DataPersistorInterface
+     */
+    protected $dataPersistor;
+
+    /**
      * saveComment constructor.
      * @param Context $context
+     * @param DataPersistorInterface $dataPersistor
      * @param Comment $commentModel
      * @param ResourceComment $resourceModel
      */
     public function __construct(
         Context $context,
+        DataPersistorInterface $dataPersistor,
         Comment $commentModel,
         ResourceComment $resourceModel
-    )
-    {
+    ) {
         parent::__construct($context);
+        $this->dataPersistor = $dataPersistor;
         $this->commentModel = $commentModel;
         $this->resourceModel = $resourceModel;
     }
 
     public function execute()
     {
-        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $params = $this->getRequest()->getParam('comments');
-        $name = trim($params['name']);
-        $email = trim($params['email']);
-        $comment = trim($params['comment']);
-        try {
-            if (!\Zend_Validate::is($name, 'NotEmpty')) {
-                $this->messageManager->addErrorMessage('Name must not be empty');
-                $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-                return $resultRedirect;
-            } else if (!\Zend_Validate::is($comment, 'NotEmpty')) {
-                $this->messageManager->addErrorMessage('Comment must not be empty');
-                $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-                return $resultRedirect;
-            } else if (!\Zend_Validate::is($email, 'EmailAddress')) {
-                $this->messageManager->addErrorMessage('Email address not valid');
-                $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-                return $resultRedirect;
-            } else {
-                $this->commentModel
-                    ->setData('name', $name)
-                    ->setData('email', $email)
-                    ->setData('comment', $comment);
-                try {
-                    $this->resourceModel->save($this->commentModel);
-                } catch (\Exception $e) {
-                }
-                $this->messageManager->addSuccessMessage('Comment request has been sent.');
-                $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-                return $resultRedirect;
+        $data = $this->getRequest()->getPostValue();
+        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+        $resultRedirect = $this->resultRedirectFactory->create();
+        if ($data) {
+            $id = $this->getRequest()->getParam('comment_id');
+            $model = $this->commentModel->load($id);
+            if (!$model->getId() && $id) {
+                $this->messageManager->addErrorMessage(__('This Comment no longer exists.'));
+                return $resultRedirect->setPath('*/*/');
             }
-        } catch (\Zend_Validate_Exception $e) {
-            $this->messageManager->addErrorMessage(__('Error while trying to add comment: '));
-            $resultRedirect = $this->resultRedirectFactory->create();
-            return $resultRedirect->setPath($this->_redirect->getRefererUrl(), array('_current' => true));
+            $model->setData($data);
+            try {
+                $model->save();
+                $this->messageManager->addSuccessMessage(__('You saved the comment.'));
+                $this->dataPersistor->clear('product_comments');
+                if ($this->getRequest()->getParam('back')) {
+                    return $resultRedirect->setPath('*/*/add', ['comment_id' => $model->getId()]);
+                }
+                return $resultRedirect->setPath('*/*/');
+            } catch (\Exception $e) {
+                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the comment.'));
+            }
+            $this->dataPersistor->set('product_comments', $data);
+            return $resultRedirect->setPath('*/*/add', ['comment_id' => $this->getRequest()->getParam('comment_id')]);
         }
+        return $resultRedirect->setPath('*/*/');
     }
 }

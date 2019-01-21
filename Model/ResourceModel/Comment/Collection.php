@@ -1,4 +1,5 @@
 <?php
+
 namespace Dev\ProductComments\Model\ResourceModel\Comment;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;

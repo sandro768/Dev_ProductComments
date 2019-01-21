@@ -1,8 +1,6 @@
-<?php
-/** @var $block Dev\ProductComments\Block\ProductComments */
-?>
 <div class="main-div">
     <?php
+    /** @var $block Dev\ProductComments\Block\ProductComments */
     $productCollection = $block->productComments();
     $helperImport = $block->getImageHelper();
 
@@ -11,8 +9,7 @@
         $imageUrl = $helperImport->init($product, 'product_page_image_small')
             ->setImageFile($product->getThumbnail()) // image,small_image,thumbnail
             ->resize(380)
-            ->getUrl();
-        ?>
+            ->getUrl(); ?>
         <div class="product-wrapper">
             <img src="<?= $imageUrl ?>">
             <div>
@@ -21,7 +18,8 @@
                 <a href="<?=$product->getProductUrl()?>" style="text-decoration: none"><button class="action submit primary"><?= __('Enter Product') ?></button></a>
             </div>
         </div>
-    <?php } ?>
+    <?php
+    } ?>
 </div>
 
 

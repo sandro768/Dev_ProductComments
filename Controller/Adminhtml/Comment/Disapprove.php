@@ -1,12 +1,15 @@
 <?php
 namespace Dev\ProductComments\Controller\Adminhtml\Comment;
+
 use Dev\ProductComments\Model\ResourceModel\Comment\CollectionFactory;
-use Magento\Backend\App\Action\Context;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
-class MassDelete extends \Magento\Backend\App\Action
+
+class Disapprove extends Action
 {
-    private $filter;
+    protected $filter;
 
     protected $collectionFactory;
 
@@ -21,10 +24,10 @@ class MassDelete extends \Magento\Backend\App\Action
     {
         $collection = $this->filter->getCollection($this->collectionFactory->create());
         foreach ($collection as $item) {
-            $item->delete();
+            $item->setStatus('not approved');
+            $item->save();
         }
-        $this->messageManager->addSuccessMessage(__('Comments have been deleted.'));
-
+        $this->messageManager->addSuccessMessage(__('Elements have been disapproved.'));
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         return $resultRedirect->setPath('*/*/');
     }
